@@ -1,0 +1,23 @@
+# Référentiel d'exemple (versionné). Le vrai référentiel, avec les noms des clients du laboratoire, est
+# dans referentiel.yaml : il n'est jamais versionné (voir .gitignore). Codes LIMS fictifs, à remplacer.
+laboratoires:
+  - ORVENNE ANALYSES
+clients:                   # donneurs d'ordre (émetteurs des BDC)
+  - nom: CLIENT EXEMPLE
+    code_lims: CLI-000
+analyses:                  # code affiché sur le BDC, code LIMS, synonymes rencontrés sur les scans
+  - code: HAP 16
+    code_lims: HAP16
+    synonymes: [HAP, HAP16, 16 HAP, HAP 16 EPA]
+  - code: MS
+    code_lims: MS
+    synonymes: [matière sèche, matiere seche, MS%]
+  - code: pH
+    code_lims: PH
+    synonymes: [PH, pH eau]
+  - code: ETM
+    code_lims: ETM
+    synonymes: [métaux, metaux, éléments traces métalliques]
+  - code: COT
+    code_lims: COT
+    synonymes: [carbone organique total]

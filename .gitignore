@@ -1,0 +1,16 @@
+# Données et sorties : jamais versionnées (RGPD, données de bons de commande)
+data/
+/data
+out/
+*.pdf
+*.zip
+
+# Environnement Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Secrets et référentiel réel : jamais versionnés
+.env
+referentiel.yaml

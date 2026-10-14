@@ -1,0 +1,43 @@
+# Seul endroit où les modèles sont nommés. Changer de version = changer une ligne ici, puis relancer
+# « python benchmark.py » : la nouvelle version n'est adoptée que si son score ne baisse pas.
+# Identifiants stables recopiés de https://ai.google.dev/gemini-api/docs/models le 13/10/2026.
+# Jamais d'alias « -latest » ni de modèle « preview » : ils changent sans prévenir.
+# Choix du 13/10/2026 (benchmark sur BDC_06_ecotellus_liasse_n1, niveau gratuit) :
+#   gemini-3.1-flash-lite 34/34 justes, 28 s ; gemini-3.5-flash-lite 34/34, 157 s (surcharges) ;
+#   gemini-3.8-flash et gemini-3.6-flash : 503 (forte demande) ; gemini-2.5-* : fermés aux nouveaux comptes.
+
+extraction:            # lecture du scan (imprimé et manuscrit) et transformation en JSON
+  fournisseur: gemini
+  modele: gemini-3.1-flash-lite
+  reflexion: medium    # minimal, low, medium, high
+relecture:             # agent de relecture : zoom sur les champs douteux
+  fournisseur: gemini
+  modele: gemini-3.1-flash-lite
+  reflexion: high
+chatbot:               # questions des laborantins sur les BDC validés (appel de fonctions)
+  fournisseur: gemini
+  modele: gemini-3.1-flash-lite
+  reflexion: low
+secours:               # utilisé si le modèle principal est indisponible (quota, panne)
+  fournisseur: gemini
+  modele: gemini-3.5-flash-lite
+  reflexion: low
+locale:                # variante RGPD : aucun envoi externe, modèle local plus lent
+  fournisseur: ollama
+  modele: qwen3-vl:8b
+
+seuils:
+  confiance_min: 80          # en dessous, le champ est orange et relu par l'agent
+  relectures_max: 6          # nombre maximal de champs relus par document
+  jours_attente_alerte: 3    # BDC non validé depuis plus de N jours : alerte
+  jours_urgent: 1            # BDC urgent non validé depuis plus de N jours : alerte
+  date_max_jours_futur: 7    # date de commande plus loin dans le futur : impossible
+  date_max_jours_passe: 365  # date de commande plus ancienne : suspecte
+
+chemins:
+  base: out/bdc.sqlite                    # BDC, statuts, historique des corrections
+  scans: out/scans                        # copie des documents déposés (jamais dans data/)
+  envois_externes: out/envois_externes.jsonl  # trace de chaque envoi d'image à un service externe
+  verite: out/verite                      # BDC validés : jeu de référence du benchmark
+  referentiel: referentiel.yaml           # repli : referentiel.exemple.yaml
+  gcms_resultats: out/gcms_resultats.csv  # export des résultats HAP (projet GC-MS), facultatif

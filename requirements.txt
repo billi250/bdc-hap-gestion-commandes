@@ -1,0 +1,9 @@
+google-genai==2.30.0
+numpy==2.5.4
+opencv-python-headless==5.0.0.93
+pydantic==2.14.1
+pymupdf==1.28.2
+pytesseract==0.3.13
+pytest==9.1.1
+PyYAML==6.0.3
+streamlit==1.65.0
